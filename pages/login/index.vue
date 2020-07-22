@@ -26,9 +26,8 @@
               <v-card-text>
                 <v-form id="form" ref="form" v-model="valid" lazy-validation >
                   <v-text-field
-                    v-model="login.email"
+                    v-model="login.username"
                     label="E-mail"
-                    :rules="emailRules"
                     name="login"
                     prepend-icon="person"
                     type="text"
@@ -47,7 +46,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-btn elevation="0" @click="switcherLoginRegister"><span style="color: blue">Sign up bitch</span></v-btn>
+                <v-btn elevation="0" @click="switcherLoginRegister"><span style="color: blue">Sign up</span></v-btn>
                 <v-spacer />
                 <v-btn :disabled="!valid" color="primary" @click="userLog">Login</v-btn>
               </v-card-actions>
@@ -62,6 +61,30 @@
               </v-toolbar>
               <v-card-text>
                 <v-form id="form2" ref="form2" v-model="valid" lazy-validation >
+                  <v-text-field
+                    v-model="register.username"
+                    label="Username"
+                    name="login"
+                    prepend-icon="person"
+                    type="text"
+                    required
+                  />
+                  <v-text-field
+                    v-model="register.firstname"
+                    label="Firstname"
+                    name="login"
+                    prepend-icon="person"
+                    type="text"
+                    required
+                  />
+                  <v-text-field
+                    v-model="register.lastname"
+                    label="Lastname"
+                    name="login"
+                    prepend-icon="person"
+                    type="text"
+                    required
+                  />
                   <v-text-field
                     v-model="register.email"
                     label="E-mail"
@@ -83,7 +106,7 @@
                   /><v-text-field
                   id="password"
                   :rules="passwordRules"
-                  v-model="register.password2"
+                  v-model="register.password_confirmation"
                   label="Repeat Password"
                   name="password"
                   prepend-icon="lock"
@@ -93,7 +116,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-btn elevation="0" @click="switcherLoginRegister"><span style="color: blue">Sign in bijach</span></v-btn>
+                <v-btn elevation="0" @click="switcherLoginRegister"><span style="color: blue">Sign in</span></v-btn>
                 <v-spacer />
                 <v-btn :disabled="!valid" color="primary" @click="registerUser">Login</v-btn>
               </v-card-actions>
@@ -114,13 +137,17 @@
             return{
                 switchLoginRegister: false,
                 login: {
-                    email: '',
+                    username: '',
                     password: '',
                 },
                 register: {
+                    terms_accepted: true,
                     email: '',
+                    firstname: '',
+                    lastname: '',
+                    username: '',
                     password: '',
-                    password2: ''
+                    password_confirmation: ''
                 },
                 valid: true,
                 passwordRules: [
@@ -137,14 +164,14 @@
             switcherLoginRegister(){
               this.switchLoginRegister = !this.switchLoginRegister
             },
-            async userLog(){
+          async userLog(){
                 try{
                     if(!this.$refs.form.validate()) return
                     const res = await this.$auth.loginWith('local', {
-                        data: this.login
+                      data: this.login
                     })
                 } catch (e) {
-                    this.$toast.error('Jakab je picka')
+                    this.$toast.error('Error')
                 }
 
 
@@ -152,11 +179,10 @@
             async registerUser(){
                 try{
                     if(!this.$refs.form2.validate()) return
-                    const res = await this.$axios.post('ruta za register, jakab je picka', {
-                        data: this.register
-                    })
+                    const res = await this.$axios.post('auth/register', this.register)
+                    console.log(res)
                 } catch(e) {
-                    this.$toast.error('Kis je picka')
+                    this.$toast.error('Error')
                 }
             }
         }

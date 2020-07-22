@@ -1,4 +1,4 @@
-
+const env = require('./env');
 export default {
   /*
   ** Nuxt rendering mode
@@ -15,7 +15,7 @@ export default {
   ** See https://nuxtjs.org/api/configuration-head
   */
   head: {
-    title: 'Jakab picka' || '',
+    title: 'Astra playlist' || '',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -70,18 +70,21 @@ export default {
       }
     ]
   },
-
+  ...env,
+  axios: {
+    baseURL: 'https://astra-playlist.herokuapp.com/api/'
+  },
   auth: {
     strategies: {
       local: {
         endpoints: {
           login: {
-            url: 'https://api.nikky.jsteam.gaussx.com/api/admin/login',
+            url: 'https://astra-playlist.herokuapp.com/api/auth/login',
             method: 'post',
             propertyName: 'data.token'
           },
           user: {
-            url: 'https://api.nikky.jsteam.gaussx.com/api/admin/me',
+            url: 'https://astra-playlist.herokuapp.com/api/users/me',
             method: 'get',
             propertyName: 'data'
           },
