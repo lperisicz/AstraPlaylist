@@ -14,10 +14,10 @@
     "@nuxtjs/axios": "^5.11.0",
     "@nuxtjs/toast": "^3.3.0",
     "material-design-icons": "^3.0.1",
-    "nuxt": "^2.13.0",
+    "nuxt": "^3.0.0",
     "nuxt-material-design-icons": "^1.0.4"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.11.2"
+    "@nuxtjs/vuetify": "^1.12.3"
   }
 }
